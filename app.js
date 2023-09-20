@@ -23,7 +23,7 @@ app.use(express.urlencoded({ extended: true }));
 app.get("/", renderMainPage);
 app.get("/register", renderRegisterPage);
 app.post("/register", registerController);
-app.get("/login", renderLoginPage);
+// app.get("/login", renderLoginPage);
 
 // app.use("/api/user", userRouter);
 app.use("/api/contacts", contactsRouter);

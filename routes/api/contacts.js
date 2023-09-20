@@ -12,7 +12,7 @@ const {
 
 const { validateBody, authenticate } = require("../../middlewares");
 
-const { addSchema, updateFavoriteSchema } = require("../../shemas/contacts");
+const { addSchema, updateFavoriteSchema } = require("../../shemas/coctails");
 
 router.get("/all", authenticate, getContactsList);
 

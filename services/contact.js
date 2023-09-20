@@ -1,6 +1,6 @@
 // Робота з базою даних - запити
 
-const { Contact } = require("../shemas/contacts");
+const { Contact } = require("../shemas/coctails");
 
 const getAllContacts = async ({ owner }, req) => {
   const { page = 1, limit = 30 } = req.query;

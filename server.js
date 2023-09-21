@@ -4,7 +4,7 @@ mongoose.set('strictQuery', true);
 
 
 
-require("dotenv").config();
+
 
 const DB_HOST = process.env.DB_HOST;
 

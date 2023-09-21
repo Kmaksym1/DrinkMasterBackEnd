@@ -1,15 +1,7 @@
 const express = require("express");
 const logger = require("morgan");
 const cors = require("cors");
-
-// const userRouter = require("./routes/api/user");
-// const contactsRouter = require("./routes/api/contacts");
-// const {
-//   renderMainPage,
-//   renderRegisterPage,
-//   registerController,
-//   renderLoginPage,
-// } = require("./controllers/auth");
+require("dotenv").config();
 
 const app = express();
 
@@ -19,14 +11,9 @@ app.set("view engine", "ejs");
 app.use(logger(formatsLogger));
 app.use(cors());
 app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
-// app.get("/", renderMainPage);
-// app.get("/register", renderRegisterPage);
-// app.post("/register", registerController);
-// app.get("/login", renderLoginPage);
+// app.use(express.urlencoded({ extended: true }));
 
-// app.use("/api/user", userRouter);
-// app.use("/api/contacts", contactsRouter);
+// app.use("api/user", userRouter)
 
 app.use((req, res) => {
   res.status(404).json({ message: "Not found!" });

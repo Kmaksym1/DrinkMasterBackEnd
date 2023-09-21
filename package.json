@@ -20,8 +20,7 @@
     "jsonwebtoken": "^9.0.1",
     "mongoose": "^6.9.2",
     "morgan": "^1.10.0",
-    "node": "^20.6.0",
-    "shortid": "^2.2.16"
+    "node": "^20.6.0"
   },
   "devDependencies": {
     "eslint": "^7.19.0",

@@ -1,13 +1,12 @@
-const controllerWrapper = (ctrl) => {
+const ctrlWrapper = (ctrl) => {
   const func = async (req, res, next) => {
     try {
       await ctrl(req, res, next);
-    } catch (error) {
-      next(error);
+    } catch (er) {
+      next(er);
     }
   };
-
   return func;
 };
+module.exports = ctrlWrapper;
 
-module.exports = controllerWrapper;

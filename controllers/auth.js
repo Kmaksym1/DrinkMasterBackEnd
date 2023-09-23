@@ -1,7 +1,10 @@
-const { HttpError, ctrlWrapper } = require("../helpers");
+const { HttpError, ctrlWrapper, cloudinary } = require("../helpers");
 const { User } = require("../shemas/user");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
+const gravatar = require("gravatar");
+const fs = require("fs/promises");
+const jimp = require("jimp");
 
 const { SECRET } = process.env;
 
@@ -17,8 +20,14 @@ const signUp = async (req, res) => {
   // хешування паролю
   const hashPassword = await bcrypt.hash(password, 10);
 
+  const avatarURL = gravatar.url(email);
+
   // додавання нового юзера в базу
-  const newUser = await User.create({ ...req.body, password: hashPassword });
+  const newUser = await User.create({
+    ...req.body,
+    password: hashPassword,
+    avatarURL,
+  });
 
   res.status(201).json(newUser);
 };
@@ -59,8 +68,38 @@ const signOut = async (req, res) => {
   });
 };
 
+const updateAvatar = async (req, res, next) => {
+  const { _id } = req.user;
+  const { path: tempUpload } = req.file;
+  console.log(tempUpload);
+
+  // зміна розміру аватара
+  const passAvatar = await jimp.read(tempUpload);
+  await passAvatar
+    .autocrop()
+    .cover(250, 250, jimp.HORIZONTAL_ALIGN_CENTER, jimp.VERTICAL_ALIGN_MIDDLE);
+
+  await passAvatar.writeAsync(tempUpload);
+  //
+
+  const { secure_url: avatarURL, public_id: avatartCloudId } =
+    await cloudinary.uploader.upload(tempUpload, {
+      folder: "avatars",
+    });
+
+  await fs.unlink(tempUpload);
+
+  await User.findByIdAndUpdate(_id, { avatarURL, avatartCloudId });
+
+  res.json({
+    avatarURL,
+    avatartCloudId,
+  });
+};
+
 module.exports = {
   signUp: ctrlWrapper(signUp),
   signIn: ctrlWrapper(signIn),
   signOut: ctrlWrapper(signOut),
+  updateAvatar: ctrlWrapper(updateAvatar),
 };

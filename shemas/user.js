@@ -30,6 +30,18 @@ const userSchema = new Schema(
       type: String,
       default: "",
     },
+    subscribe: {
+      type: Boolean,
+      default: false,
+    },
+    avatarURL: {
+      type: String,
+      required: true,
+    },
+    avatartCloudId: {
+      type: String,
+      default: null,
+    },
   },
   {
     versionKey: false,

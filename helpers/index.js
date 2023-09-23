@@ -1,10 +1,11 @@
 const HttpError = require("./HttpError");
-const ctrlWrapper = require("./ctrlWrapper")
-const handleMongooseError = require("./handleMongooseError")
+const ctrlWrapper = require("./ctrlWrapper");
+const handleMongooseError = require("./handleMongooseError");
+const cloudinary = require("../helpers/cloudinary");
 
 module.exports = {
-    HttpError,
-    ctrlWrapper,
-    handleMongooseError,
+  HttpError,
+  ctrlWrapper,
+  handleMongooseError,
+  cloudinary,
 };
-

@@ -1,6 +1,6 @@
 const fs = require("fs/promises");
 const path = require("path");
-const { controllerWrapper, HttpError } = require("../helpers");
+const { ctrlWrapper, HttpError } = require("../helpers");
 const { Ingredient } = require("../shemas/ingredient");
 
 const categoriesPath = path.join(__dirname, "../", "db", "categories.json");
@@ -31,7 +31,7 @@ const getGlasses = async (req, res) => {
 };
 
 module.exports = {
-  getCategories: controllerWrapper(getCategories),
-  getIngredients: controllerWrapper(getIngredients),
-  getGlasses: controllerWrapper(getGlasses),
+  getCategories: ctrlWrapper(getCategories),
+  getIngredients: ctrlWrapper(getIngredients),
+  getGlasses: ctrlWrapper(getGlasses),
 };

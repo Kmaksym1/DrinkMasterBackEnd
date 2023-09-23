@@ -5,3 +5,8 @@
 //     validateBody,
 //     authenticate,
 // }
+const tokenAuthMiddleware = require("./authenticate");
+
+module.exports = {
+  tokenAuthMiddleware,
+};

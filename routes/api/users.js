@@ -16,6 +16,3 @@
 // userRouter.patch("/", authenticate, updateSubscription);
 
 // module.exports = userRouter;
-
-const express = require("express");
-

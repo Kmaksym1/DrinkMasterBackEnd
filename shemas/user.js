@@ -1,64 +1,60 @@
-// const mongoose = require("mongoose");
-// const { Schema, model } = mongoose;
-// const Joi = require("joi");
-// const crypto = require("node:crypto");
-// require("dotenv").config();
+const mongoose = require("mongoose");
+const { Schema, model } = mongoose;
+const Joi = require("joi");
+const { handleMongooseError } = require("../helpers");
 
-// // const emailRegexp = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+const emailRegexp = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
 
-// const userSchema = new Schema(
-//   {
-    
-//   },
-//   {
-//     versionKey: false,
-//     timestamps: true,
-//   }
-// );
+const userSchema = new Schema(
+  {
+    name: {
+      type: String,
+      required: true,
+    },
+    birthday: {
+      type: String,
+      required: true,
+    },
+    email: {
+      type: String,
+      match: emailRegexp,
+      unique: true,
+      required: true,
+    },
+    password: {
+      type: String,
+      minlength: 6,
+      required: true,
+    },
+    token: {
+      type: String,
+      default: "",
+    },
+  },
+  {
+    versionKey: false,
+    timestamps: true,
+  }
+);
 
-// const makeHash = async (password) => {
-//   return new Promise((resolve, reject) => {
-//     crypto.scrypt(password, process.env.SALT, 64, (err, hash) => {
-//       if (err) {
-//         reject(err);
-//       }
-//       resolve(hash.toString("hex"));
-//     });
-//   });
-// };
+userSchema.post("save", handleMongooseError);
 
-// userSchema.methods.setPassword = async function (password) {
-//   try {
-//     this.password = await makeHash(password);
-//   } catch (err) {
-//     console.log(err.message);
-//   }
-// };
+const signUpSchema = Joi.object({
+  name: Joi.string().required(),
+  birthday: Joi.date().required(),
+  email: Joi.string().pattern(emailRegexp).required(),
+  password: Joi.string().min(6).required(),
+});
 
-// userSchema.methods.validPassword = async function (password) {
-//   try {
-//     const hash = await makeHash(password);
-//     return hash === this.password;
-//   } catch (err) {
-//     console.log(err.message);
-//   }
-// };
+const signInSchema = Joi.object({
+  email: Joi.string().pattern(emailRegexp).required(),
+  password: Joi.string().min(6).required(),
+});
 
-// const signUpSchema = Joi.object({  
-  
-// });
+const User = model("user", userSchema);
 
-// const logInSchema = Joi.object({
-  
-// });
-
-// const schemas = {
-//   signUpSchema,
-//   logInSchema,
-// };
-// const User = model("User", userSchema);
-
-// module.exports = {
-//   User,
-//   schemas,
-// };
+module.exports = {
+  User,
+  signUpSchema,
+  signInSchema,
+};

@@ -1,89 +1,66 @@
-// const { HttpError, ctrlWrapper } = require("../helpers");
-// const { User } = require("../shemas/user");
-// const jwt = require("jsonwebtoken");
-// const bcrypt = require("bcrypt");
-// const { updateUsersSubscription, getUserByEmail } = require("../services/user");
-// require("dotenv").config();
-// const { SECRET } = process.env;
+const { HttpError, ctrlWrapper } = require("../helpers");
+const { User } = require("../shemas/user");
+const bcrypt = require("bcrypt");
+const jwt = require("jsonwebtoken");
 
-// const renderMainPage = (req, res) => {
-//   res.render("index");
-// };
-// const renderRegisterPage = (req, res) => {
-//   res.render("register");
-// };
-// const renderLoginPage = (req, res) => {
-//   res.render("login");
-// };
+const { SECRET } = process.env;
 
-// const registerController = async (req, res) => {
-//   const { email, password } = req.body;
-//   const user = await getUserByEmail(email);
-//   if (user) {
-//     throw HttpError(409, "Email already in use");
-//   }
-//   const hashPassword = await bcrypt.hash(password, 10);
-//   const newUser = await User.create({ ...req.body, password: hashPassword });
-//   res.status(201).json({
-//     email: newUser.email,
-//   });
-// };
-// const signInController = async (req, res) => {
-//   const { email, password } = req.body;
-//   const user = await getUserByEmail(email);
+const signUp = async (req, res) => {
+  console.log(req.body);
+  // перевірка на унікальність email
+  const { email, password } = req.body;
+  const user = await User.findOne({ email });
+  if (user) {
+    throw HttpError(409, "Email already in use");
+  }
 
-//   if (!user) {
-//     throw HttpError(401, "Email or password invalid");
-//   }
-//   const isPasswordValid = await bcrypt.compare(password, user.password);
-//   if (!isPasswordValid) {
-//     throw HttpError(401, "Email or password invalide");
-//   }
-//   const payload = {
-//     id: user._id,
-//   };
-//   const token = jwt.sign(payload, SECRET, { expiresIn: "23h" });
-//   await User.findByIdAndUpdate(user._id, { token });
+  // хешування паролю
+  const hashPassword = await bcrypt.hash(password, 10);
 
-//   res.json({
-//     token,
-//   });
-// };
+  // додавання нового юзера в базу
+  const newUser = await User.create({ ...req.body, password: hashPassword });
 
-// const signOutController = async (req, res) => {
-//   const { _id } = req.user;
-//   await User.findByIdAndUpdate(_id, { token: "" });
+  res.status(201).json(newUser);
+};
 
-//   res.json({
-//     message: "SignOut Success",
-//   });
-// };
-// const getCurrent = (req, res) => {
-//   const { email, subscription } = req.user;
-//   res.json({ email, subscription });
-// };
+const signIn = async (req, res) => {
+  const { email, password } = req.body;
 
-// const updateSubscription = async (req, res) => {
-//   const { _id } = req.user;
-//   const { subscription } = req.body;
+  const user = await User.findOne({ email });
 
-//   if (!["starter", "pro", "business"].includes(subscription)) {
-//     throw HttpError(404, "Invalid subscription value");
-//   }
-//   const result = await updateUsersSubscription(_id, req.body);
-//   if (!result) {
-//     throw HttpError(404, "Not found");
-//   }
-//   res.json({ result });
-// };
+  if (!user) {
+    throw HttpError(401, "Email or password invalid");
+  }
 
-// module.exports = {
-//   renderMainPage,
-//   renderLoginPage,
-//   renderRegisterPage,
-//   registerController: ctrlWrapper(registerController),
-//   signInController: ctrlWrapper(signInController),
-//   signOutController: ctrlWrapper(signOutController),
-//   getCurrent: ctrlWrapper(getCurrent),
-//   updateSubscription: ctrlWrapper(updateSubscription),
-// };
+  const passwordCompare = await bcrypt.compare(password, user.password);
+  if (!passwordCompare) {
+    throw HttpError(401, "Email or password invalid");
+  }
+
+  const payload = {
+    id: user._id,
+  };
+
+  const token = jwt.sign(payload, SECRET, { expiresIn: "23h" });
+
+  await User.findByIdAndUpdate(user._id, { token });
+
+  res.json({
+    token,
+  });
+};
+
+const signOut = async (req, res) => {
+  const { _id } = req.user;
+  await User.findByIdAndUpdate(_id, { token: "" });
+
+  res.json({
+    message: "Logout success",
+  });
+};
+
+module.exports = {
+  signUp: ctrlWrapper(signUp),
+  signIn: ctrlWrapper(signIn),
+  signOut: ctrlWrapper(signOut),
+};

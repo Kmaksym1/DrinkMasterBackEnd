@@ -87,15 +87,3 @@
 //   getCurrent: ctrlWrapper(getCurrent),
 //   updateSubscription: ctrlWrapper(updateSubscription),
 // };
-
-const getCurrentUser = async (req, res, next) => {
-  try {
-    const { user } = req;
-
-    res.json({ user });
-  } catch (error) {
-    next(error);
-  }
-};
-
-module.exports = { getCurrentUser };

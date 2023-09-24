@@ -41,15 +41,14 @@ const tokenAuthMiddleware = async (req, res, next) => {
   //   if (bearer !== "Bearer") {
   //     next(HttpError(401, "Not authorized"));
   //   }
-
+  
   try {
     // const { id } = jwt.verify(token, PRIVATE_KEY);
-    console.log(req.body);
-    const { id } = req.body;
+
+    // const { id } = req.body; //!
+    const { id } = req.params;
 
     const user = await UserModel.findById(id);
-
-    console.log(user);
 
     if (!user) {
       return next(HttpError(404, "User not found"));

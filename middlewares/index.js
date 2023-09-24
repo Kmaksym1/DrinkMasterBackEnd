@@ -6,7 +6,9 @@
 //     authenticate,
 // }
 const tokenAuthMiddleware = require("./authenticate");
+const isValidId = require("./isValidId");
 
 module.exports = {
   tokenAuthMiddleware,
+  isValidId,
 };

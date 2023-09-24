@@ -8,7 +8,7 @@
 
 // const userSchema = new Schema(
 //   {
-    
+
 //   },
 //   {
 //     versionKey: false,
@@ -44,12 +44,12 @@
 //   }
 // };
 
-// const signUpSchema = Joi.object({  
-  
+// const signUpSchema = Joi.object({
+
 // });
 
 // const logInSchema = Joi.object({
-  
+
 // });
 
 // const schemas = {
@@ -82,6 +82,14 @@ const userSchema = new Schema(
       required: [true, "Email is required"],
       unique: true,
     },
+    name: {
+      type: String,
+      required: [true, "Name is required"],
+    },
+    birthday: {
+      type: Date,
+      required: [true, "Birthday is required"],
+    },
     subscription: {
       type: String,
       enum: ["starter", "pro", "business"],
@@ -107,9 +115,11 @@ const userSchema = new Schema(
   { versionKey: false }
 );
 
-const registerSchema = Joi.object({
-  password: Joi.string().min(6).required(),
+const signUpSchema = Joi.object({
+  name: Joi.string().required(),
+  birthday: Joi.date().required(),
   email: Joi.string().pattern(emailRegexp).required(),
+  password: Joi.string().min(6).required(),
 });
 
 const loginSchema = Joi.object({
@@ -122,9 +132,9 @@ const emailSchema = Joi.object({
 });
 
 const schemas = {
-  registerSchema,
   loginSchema,
   emailSchema,
+  signUpSchema,
 };
 
 userSchema.post("save", handleMongooseError);

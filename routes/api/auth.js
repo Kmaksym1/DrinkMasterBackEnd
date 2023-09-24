@@ -87,12 +87,3 @@
 //   getCurrent: ctrlWrapper(getCurrent),
 //   updateSubscription: ctrlWrapper(updateSubscription),
 // };
-
-const express = require("express");
-const router = express.Router();
-const ctrls = require("../../controllers/auth");
-const { tokenAuthMiddleware } = require("../../middlewares");
-
-router.get("/current", tokenAuthMiddleware, ctrls.getCurrentUser);
-
-module.exports = router;

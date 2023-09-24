@@ -8,8 +8,8 @@ const { upload } = require("../../middlewares");
 
 router.get("/mainpage",authenticate, errorHandler(drinks.getMainPage));
 router.get("/byid/:recipeId",authenticate, errorHandler(drinks.getRecipeById));
-router.get("/own",authenticate,upload.single("cocktails"),errorHandler(drinks.getOwnCocktails));
-router.post("/own/add", authenticate, errorHandler(drinks.ownCocktailAdd));
+router.get("/own",authenticate,errorHandler(drinks.getOwnCocktails));
+router.post("/own/add", authenticate, upload.single("cocktails"),errorHandler(drinks.ownCocktailAdd));
 router.delete("/own/remove", authenticate, errorHandler(drinks.ownCocktailRemove));
 
 module.exports = router;

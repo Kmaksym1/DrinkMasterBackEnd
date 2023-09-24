@@ -41,7 +41,7 @@ const tokenAuthMiddleware = async (req, res, next) => {
   //   if (bearer !== "Bearer") {
   //     next(HttpError(401, "Not authorized"));
   //   }
-  
+
   try {
     // const { id } = jwt.verify(token, PRIVATE_KEY);
 

@@ -22,7 +22,7 @@ app.use(logger(formatsLogger));
 app.use(cors());
 app.use(express.json());
 
-app.use("/users", usersRouter);
+app.use("/api/users", usersRouter);
 app.use("/api/auth", authRouter);
 app.use("/api/filters", filtersRouter);
 app.use("/api/drinks", drinksRouter);

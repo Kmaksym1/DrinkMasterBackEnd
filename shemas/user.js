@@ -1,5 +1,6 @@
 const Joi = require("joi");
 const { Schema, model } = require("mongoose");
+const gravatar = require("gravatar");
 const { handleMongooseError } = require("../helpers");
 
 const emailRegexp = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
@@ -29,10 +30,12 @@ const userSchema = new Schema(
       type: String,
       default: null,
     },
-    // avatarURL: {
-    //   type: String,
-    //   required: true,
-    // },
+    avatarURL: {
+      type: String,
+      default: function () {
+        return gravatar.url(this.email, { s: 250 }, true);
+      },
+    },
     verify: {
       type: Boolean,
       default: false,

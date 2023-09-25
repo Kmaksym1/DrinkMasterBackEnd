@@ -1,8 +1,8 @@
-// const jwt = require("jsonwebtoken");
-// const { HttpError } = require("../helpers");
-// const { User } = require("../shemas/user");
+const jwt = require("jsonwebtoken");
+const { HttpError } = require("../helpers");
+const { User } = require("../shemas/user");
 
-// const { SECRET } = process.env;
+const { SECRET } = process.env;
 
 // const authenticate = async (req, res, next) => {
 //   const { authorization = "" } = req.headers;
@@ -34,7 +34,7 @@ const { HttpError } = require("../helpers");
 
 // const { PRIVATE_KEY } = process.env;
 
-const tokenAuthMiddleware = async (req, res, next) => {
+const authenticate = async (req, res, next) => {
   //   const { authorization = " " } = req.headers;
   //   const [bearer, token] = authorization.split(" ");
 
@@ -64,4 +64,4 @@ const tokenAuthMiddleware = async (req, res, next) => {
   }
 };
 
-module.exports = tokenAuthMiddleware;
+module.exports = authenticate;

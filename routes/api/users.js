@@ -1,14 +1,14 @@
 const express = require("express");
 const router = express.Router();
 const ctrls = require("../../controllers/users");
-const { tokenAuthMiddleware, isValidId } = require("../../middlewares");
+const { authenticate, isValidId } = require("../../middlewares");
 
-router.get("/current", tokenAuthMiddleware, ctrls.getCurrentUser);
+router.get("/current", authenticate, ctrls.getCurrentUser);
 
-router.patch("/update/:id", tokenAuthMiddleware, isValidId, ctrls.updateUser);
+router.patch("/update/:id", authenticate, isValidId, ctrls.updateUser);
 
 router.post("/subscribe", ctrls.subscribeEmail);
 
-router.get("/subscribe/:id", tokenAuthMiddleware, ctrls.updateSubscribeEmail);
+router.get("/subscribe/:id", authenticate, ctrls.updateSubscribeEmail);
 
 module.exports = router;

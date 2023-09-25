@@ -5,10 +5,10 @@ const { authenticate, isValidId } = require("../../middlewares");
 
 router.get("/current", authenticate, ctrls.getCurrentUser);
 
-router.patch("/update/:id", authenticate, isValidId, ctrls.updateUser);
+router.patch("/update", authenticate, ctrls.updateUser);
 
 router.post("/subscribe", ctrls.subscribeEmail);
 
-router.get("/subscribe/:id", authenticate, ctrls.updateSubscribeEmail);
+router.get("/subscribe/:id", ctrls.updateSubscribeEmail);
 
 module.exports = router;

@@ -1,10 +1,3 @@
-// const validateBody = require("./validateBody");
-// const authenticate = require("./authenticate")
-
-// module.exports = {
-//     validateBody,
-//     authenticate,
-// }
 const validateBody = require("./validateBody");
 const authenticate = require("./authenticate");
 const upload = require("./upload");

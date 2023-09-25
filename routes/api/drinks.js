@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const { drinks } = require("../../controllers/index");
+const { drinks } = require("../../controllers");
 const authenticate = require("../../middlewares/authenticate");
 const errorHandler = require("../../helpers/errorHandler");
 const { upload } = require("../../middlewares");

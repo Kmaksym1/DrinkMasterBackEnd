@@ -1,5 +1,5 @@
 const { HttpError, createEmail, sendEmail } = require("../helpers");
-const { UserModel } = require("../shemas/user");
+const { User } = require("../shemas/user");
 
 const getCurrentUser = async (req, res, next) => {
   try {
@@ -12,13 +12,14 @@ const getCurrentUser = async (req, res, next) => {
 
 const updateUser = async (req, res, next) => {
   try {
-    const { id } = req.params;
+    const { _id } = req.user;
+
     const updateData = req.body;
-    const updatedUser = await UserModel.findByIdAndUpdate(id, updateData, {
+    const updatedUser = await User.findByIdAndUpdate(_id, updateData, {
       new: true,
     });
 
-    if (!user) {
+    if (!updatedUser) {
       throw HttpError(404, "User not found");
     }
 
@@ -30,10 +31,8 @@ const updateUser = async (req, res, next) => {
 
 const subscribeEmail = async (req, res, next) => {
   try {
-    // const { verificationToken } = req.params;
-    // const user = await UserModel.findOne({ verificationToken });
     const { email } = req.body;
-    const user = await UserModel.findOne({ email });
+    const user = await User.findOne({ email });
 
     if (!user) {
       throw HttpError(404, "User not found");
@@ -56,8 +55,8 @@ const subscribeEmail = async (req, res, next) => {
 
 const updateSubscribeEmail = async (req, res, next) => {
   try {
-    const { user } = req;
-    const { _id } = req.user;
+    const { id } = req.params;
+    const user = await User.findById(id);
 
     if (!user) {
       throw HttpError(404, "User not found");
@@ -69,7 +68,7 @@ const updateSubscribeEmail = async (req, res, next) => {
       });
     }
 
-    await UserModel.findByIdAndUpdate(_id, { subscribe: true }, { new: true });
+    await User.findByIdAndUpdate(id, { subscribe: true }, { new: true });
 
     res.status(200).json({ message: "Subscription sucsess" });
   } catch (error) {

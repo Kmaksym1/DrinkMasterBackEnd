@@ -6,7 +6,6 @@ const jwt = require("jsonwebtoken");
 const { SECRET } = process.env;
 
 const signUp = async (req, res) => {
-  console.log(req.body);
   // перевірка на унікальність email
   const { email, password } = req.body;
   const user = await User.findOne({ email });

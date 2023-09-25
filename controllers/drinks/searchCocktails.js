@@ -4,12 +4,12 @@ const HttpError = require('../../helpers/HttpError');
 const searchCocktails = async (req, res) => {
     try {
         const { searchWord, ingredient, category, page = 1, limit = 9 } = req.query;
-        const { adultUser } = req.user;
+        const { birthday } = req.user;
         const skip = (page - 1) * limit;
 
         let queryConditions = {};
 
-        if (!adultUser) {
+        if (!birthday) {
             queryConditions.alcoholic = "Non alcoholic";
         }
 

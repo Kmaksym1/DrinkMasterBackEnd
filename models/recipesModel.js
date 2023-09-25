@@ -81,17 +81,17 @@ const recipesSchema = new Schema(
 recipesSchema.post("save", handleMongooseError);
 
 const schema = Joi.object({
-    drink: Joi.string().required(),
-    tags: Joi.string().required(),
-    category: Joi.string().required(),
-    alcoholic: Joi.string().required(),
-    glass: Joi.string().required(),
-    description: Joi.string().required(),
-    instructions: Joi.string().required(),
-    instructionsUK: Joi.string().required(),
-    drinkThumb: Joi.string().required(),
-    ingredients: Joi.array().required(),
-    shortDescription: Joi.string().required(),
+    drink: Joi.string(),
+    tags: Joi.string(),
+    category: Joi.string(),
+    alcoholic: Joi.string(),
+    glass: Joi.string(),
+    description: Joi.string(),
+    instructions: Joi.string(),
+    instructionsUK: Joi.string(),
+    drinkThumb: Joi.string(),
+    ingredients: Joi.array(),
+    shortDescription: Joi.string(),
 });
 
 const recipesModel = model('recipes', recipesSchema);

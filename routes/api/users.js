@@ -1,18 +1,14 @@
-// const express = require("express");
-// const {
-//   signInController,
-//   getCurrent,
-//   signOutController,
-//   updateSubscription,
-// } = require("../../controllers/auth");
-// const { validateBody, authenticate } = require("../../middlewares");
-// const { schemas } = require("../../shemas/user");
+const express = require("express");
+const router = express.Router();
+const ctrls = require("../../controllers/users");
+const { authenticate, isValidId } = require("../../middlewares");
 
-// const userRouter = express.Router();
+router.get("/current", authenticate, ctrls.getCurrentUser);
 
-// userRouter.post("/signin", validateBody(schemas.logInSchema), signInController);
-// userRouter.get("/current", authenticate, getCurrent);
-// userRouter.post("/signout", authenticate, signOutController);
-// userRouter.patch("/", authenticate, updateSubscription);
+router.patch("/update", authenticate, ctrls.updateUser);
 
-// module.exports = userRouter;
+router.post("/subscribe", ctrls.subscribeEmail);
+
+router.get("/subscribe/:id", ctrls.updateSubscribeEmail);
+
+module.exports = router;

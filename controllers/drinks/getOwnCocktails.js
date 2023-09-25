@@ -1,13 +1,17 @@
 const { recipesModel } = require('../../models/recipesModel');
 const HttpError = require('../../helpers/HttpError');
-
+const { differenceInYears } = require("date-fns");
 
 const getOwnCocktails = async (req, res) => {
     try {
         // Отримуємо ідентифікатор користувача з об'єкта запиту
         const { _id } = req.user;
-        const { adultUser } = req.user;
+        const { birthday } = req.user;
+            const currentDate = new Date();
+    const ageUser = differenceInYears(currentDate, birthday);
 
+    // Визначаємо, чи користувач повинен бачити алкогольні коктейлі
+    const queryConditions = ageUser >= 18 ? {} : { alcoholic: "Non alcoholic" };
         // Знаходимо рецепти, що належать цьому користувачу
         const recipes = await recipesModel.find({ owner: _id });
 

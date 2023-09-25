@@ -3,7 +3,7 @@ const  HttpError = require('../../helpers/HttpError');
 
 const getRecipeById = async (req, res) => {
   try {
-    const { adultUser } = req.user;
+    const { birthday } = req.user;
     const { id } = req.params;
 
     const recipe = await recipesModel.findById(id);

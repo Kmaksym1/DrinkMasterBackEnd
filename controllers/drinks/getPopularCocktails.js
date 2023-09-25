@@ -1,15 +1,18 @@
 const { recipesModel } = require('../../models/recipesModel');
 const HttpError = require('../../helpers/HttpError');
+const { differenceInYears } = require("date-fns");
 
 const getPopularCocktails = async (req, res) => {
     try {
         const { page = 1, limit = 10 } = req.query;
         const skip = (page - 1) * limit;
-        const { adultUser } = req.user;
-
+        const { birthday } = req.user;
+      
+        const currentDate = new Date();
+        const ageUser = differenceInYears(currentDate, birthday);
         let queryConditions = {};
 
-        if (!adultUser) {
+        if (ageUser<=18) {
             queryConditions.alcoholic = "Non alcoholic";
         }
 

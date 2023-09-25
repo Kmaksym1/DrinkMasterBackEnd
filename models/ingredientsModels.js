@@ -14,11 +14,11 @@ const ingredientSchema = new Schema(
     },
     "thumb-medium": {
       type: String,
-      required: true,
+     // required: true,
     },
     "thumb-small": {
       type: String,
-      required: true,
+     // required: true,
     },
     abv: {
       type: String,

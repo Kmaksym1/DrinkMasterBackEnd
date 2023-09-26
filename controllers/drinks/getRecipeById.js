@@ -1,9 +1,15 @@
 const { recipesModel } = require('../../models/recipesModel');
 const  HttpError = require('../../helpers/HttpError');
+//const { differenceInYears } = require("date-fns");
 
 const getRecipeById = async (req, res) => {
-  try {
-    const { birthday } = req.user;
+
+    // const { birthday } = req.user;
+
+    // // Отримуємо вік користувача
+    // const currentDate = new Date();
+    // const ageUser = differenceInYears(currentDate,  new Date(birthday));
+    // const queryConditions = ageUser >= 18 ? { } : { alcoholic: "Non alcoholic" };
     const { id } = req.params;
 
     const recipe = await recipesModel.findById(id);
@@ -12,19 +18,8 @@ const getRecipeById = async (req, res) => {
       throw new HttpError(404, 'Not Found');
     }
 
-    if (recipe.alcoholic === 'Alcoholic' && !adultUser) {
-      throw new HttpError(400, 'Тільки для дорослих!');
-    }
-
-    res.status(200).json({
-      code: 200,
-      message: 'Успішна операція',
-      data: recipe,
-    });
-  } catch (error) {
-    console.error(error);
-    res.status(error.statusCode || 500).json({ error: error.message || 'Помилка на сервері' });
-  }
+    res.status(200).json(recipe);
+ 
 };
 
 module.exports = getRecipeById;

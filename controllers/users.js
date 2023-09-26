@@ -40,37 +40,17 @@ const subscribeEmail = async (req, res, next) => {
 
     if (user.subscribe) {
       return res.status(400).json({
-        message: `Підписник з адресою ${user.email} вже існує`,
+        message: `Subscriber with the address ${user.email} already exists.`,
       });
     }
 
-    const recipiaet = createEmail(email, user.id);
+    user.subscribe = true;
+    await user.save();
+
+    const recipiaet = createEmail(email);
     await sendEmail(recipiaet);
 
-    res.status(200).json({ message: "Subscription sent to your email" });
-  } catch (error) {
-    next(error);
-  }
-};
-
-const updateSubscribeEmail = async (req, res, next) => {
-  try {
-    const { id } = req.params;
-    const user = await User.findById(id);
-
-    if (!user) {
-      throw HttpError(404, "User not found");
-    }
-
-    if (user.subscribe) {
-      return res.status(400).json({
-        message: `Підписник з адресою ${user.email} вже існує`,
-      });
-    }
-
-    await User.findByIdAndUpdate(id, { subscribe: true }, { new: true });
-
-    res.status(200).json({ message: "Subscription sucsess" });
+    res.status(200).json({ message: "Subscription success" });
   } catch (error) {
     next(error);
   }
@@ -80,5 +60,4 @@ module.exports = {
   getCurrentUser,
   updateUser,
   subscribeEmail,
-  updateSubscribeEmail,
 };

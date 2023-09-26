@@ -2,7 +2,7 @@
 const nodemailer = require("nodemailer");
 require("dotenv").config();
 
-const { GMAIL_PASS, GMAIL_USER, BASE_URL } = process.env;
+const { GMAIL_PASS, GMAIL_USER } = process.env;
 
 const config = {
   service: "gmail",
@@ -15,11 +15,15 @@ const config = {
 
 const transporter = nodemailer.createTransport(config);
 
-const createEmail = (recipient, userId) => {
+const createEmail = (recipient) => {
   return {
     to: recipient,
     subject: "Subscribe",
-    html: `<a target="_blank" href="${BASE_URL}/users/subscribe/${userId}">Click to Subscribe</a>`,
+    html: `<div style="background-color: #0A0A11; color: #F3F3F3; padding: 18px; text-align: center;">
+    <p>Thank you for subscribing to our newsletter!</p>
+    <p>If you didn't request this subscription, you can simply ignore this email.</p>
+    <p>Best regards,</p>
+    <p>Drink Master</p></div>`,
   };
 };
 

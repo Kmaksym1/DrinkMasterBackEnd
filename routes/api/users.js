@@ -9,6 +9,4 @@ router.patch("/update", authenticate, ctrls.updateUser);
 
 router.post("/subscribe", ctrls.subscribeEmail);
 
-router.get("/subscribe/:id", ctrls.updateSubscribeEmail);
-
 module.exports = router;

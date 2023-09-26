@@ -6,13 +6,13 @@ const errorHandler = require("../../helpers/errorHandler");
 const { upload } = require("../../middlewares");
 
 
-router.get("/mainpage", authenticate, errorHandler(drinks.getMainPage));
+router.get("/mainpage", errorHandler(drinks.getMainPage));
 router.get("/popular", errorHandler(drinks.getPopularCocktails));
-router.get("/:recipeId", authenticate, errorHandler(drinks.getRecipeById));
-router.get("/search", authenticate, errorHandler(drinks.searchCocktails));
-router.get("/own",authenticate,errorHandler(drinks.getOwnCocktails));
-router.post("/own/add", authenticate, upload.single("cocktails"),errorHandler(drinks.ownCocktailAdd));
-router.delete("/own/remove", authenticate, errorHandler(drinks.ownCocktailRemove));
+router.get("/:recipeId",  errorHandler(drinks.getRecipeById));
+router.get("/search", errorHandler(drinks.searchCocktails));
+router.get("/own",errorHandler(drinks.getOwnCocktails));
+router.post("/own/add",  upload.single("cocktails"),errorHandler(drinks.ownCocktailAdd));
+router.delete("/own/remove",  errorHandler(drinks.ownCocktailRemove));
 
 
 module.exports = router;

@@ -10,7 +10,7 @@ const ingredientSchema = new Schema(
     },
     ingredientThumb: {
       type: String,
-      required: true,
+     // required: true,
     },
     "thumb-medium": {
       type: String,
@@ -22,28 +22,28 @@ const ingredientSchema = new Schema(
     },
     abv: {
       type: String,
-      required: true,
+     //required: true,
     },
     alcohol: {
       type: String,
-      required: true,
+     // required: true,
       enum: ["Yes", "No"],
     },
     description: {
       type: String,
-      required: true,
+     // required: true,
     },
     type: {
       type: String,
-      required: true,
+     // required: true,
     },
     flavour: {
       type: String,
-      required: true,
+     // required: true,
     },
     country: {
       type: String,
-      required: true,
+     // required: true,
     },
   },
   { versionKey: false, timestamps: true }
@@ -51,7 +51,7 @@ const ingredientSchema = new Schema(
 
 ingredientSchema.post("save", handleMongooseError);
 
-const ingredientsModel = model("ingredient", ingredientSchema);
+const ingredientsModel = model("ingredients", ingredientSchema);
 
 
 module.exports = {

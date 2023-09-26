@@ -1,18 +1,12 @@
-const { recipesModel } = require('../../models/recipesModel');
+const { recipesModel,schema } = require('../../models/recipesModel');
 const HttpError = require('../../helpers/HttpError');
 
 const ownCocktailAdd = async (req, res) => {
-   
-    if (!req.file || !req.file.path) {
-        throw HttpError(400, "Файл обов'язковий для цього запиту");
-    }
-
-    const userAge = req.user.birthday || 0; 
 
     const cocktailAdd = {
         ...req.body,
-        drinkThumb: req.file.path,
-        ingredients: JSON.parse(req.body.ingredients),
+       // drinkThumb: req.file.path,
+//ingredients: JSON.parse(req.body.ingredients),
     };
     console.log(cocktailAdd);
 
@@ -23,14 +17,8 @@ const ownCocktailAdd = async (req, res) => {
         throw HttpError(400, "Заповни всі поля");
     }
 
-    if (userAge < 18) {
-        cocktailAdd.isAlcoholic = false;
-    }
-
-    const { _id } = req.user;
-
-    const result = await recipesModel.create({ ...cocktailAdd, owner: _id });
-
+    const result = await recipesModel.create({ ...cocktailAdd});
+//owner: _id 
     res.status(201).json({
         code: 201,
         message: 'Успішно',

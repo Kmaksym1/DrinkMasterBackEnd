@@ -1,5 +1,5 @@
 const { HttpError, createEmail, sendEmail } = require("../helpers");
-const { User } = require("../shemas/user");
+const { User } = require("../models/user");
 
 const getCurrentUser = async (req, res, next) => {
   try {

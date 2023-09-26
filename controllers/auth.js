@@ -1,5 +1,5 @@
 const { HttpError, ctrlWrapper } = require("../helpers");
-const { User } = require("../shemas/user");
+const { User } = require("../models/user");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 
@@ -15,7 +15,6 @@ const signUp = async (req, res) => {
 
   // хешування паролю
   const hashPassword = await bcrypt.hash(password, 10);
-
   // додавання нового юзера в базу
   const newUser = await User.create({ ...req.body, password: hashPassword });
 

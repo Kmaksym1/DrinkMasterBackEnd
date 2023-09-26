@@ -1,6 +1,7 @@
 const Joi = require("joi");
 const { Schema, model } = require("mongoose");
 const gravatar = require("gravatar");
+
 const { handleMongooseError } = require("../helpers");
 
 const emailRegexp = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
@@ -12,7 +13,7 @@ const userSchema = new Schema(
       required: [true, "Name is required"],
     },
     birthday: {
-      type: Date,
+      type: String,
       required: [true, "Birthday is required"],
     },
     email: {
@@ -57,7 +58,7 @@ const userSchema = new Schema(
 
 const signUpSchema = Joi.object({
   name: Joi.string().required(),
-  birthday: Joi.date().required(),
+  birthday: Joi.string().required(),
   email: Joi.string().pattern(emailRegexp).required(),
   password: Joi.string().min(6).required(),
 });

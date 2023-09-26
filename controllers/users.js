@@ -1,5 +1,5 @@
 const { HttpError, createEmail, sendEmail } = require("../helpers");
-const { User } = require("../models/user");
+const { User, emailSchema } = require("../models/user");
 
 const getCurrentUser = async (req, res, next) => {
   try {
@@ -32,6 +32,13 @@ const updateUser = async (req, res, next) => {
 const subscribeEmail = async (req, res, next) => {
   try {
     const { email } = req.body;
+    const { error, value } = emailSchema.validate(req.body);
+
+    if (error) {
+      console.error(error.message);
+      throw HttpError(400, "Incorrect email address");
+    }
+
     const user = await User.findOne({ email });
 
     if (!user) {

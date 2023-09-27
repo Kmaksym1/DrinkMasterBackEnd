@@ -12,7 +12,7 @@ const ownCocktailAdd = async (req, res) => {
     // const isAlcoholic = ageUser >= 18;
     const cocktailAdd = {
         ...req.body,
-       // drinkThumb: req.file.path,
+      //drinkThumb: req.file.path,
 //ingredients: JSON.parse(req.body.ingredients),
     };
     console.log(cocktailAdd);
@@ -23,9 +23,9 @@ const ownCocktailAdd = async (req, res) => {
         res.status(400);
         throw HttpError(400, "Enter all fields");
     }
-   // const { _id } = req.user;
-    const result = await recipesModel.create({ ...cocktailAdd });
-//, owner: _id
+  //const { _id} = req.user;
+    const result = await recipesModel.create({ ...cocktailAdd});
+//, owner: id 
     res.status(201).json({
         code: 201,
         message: 'Success',

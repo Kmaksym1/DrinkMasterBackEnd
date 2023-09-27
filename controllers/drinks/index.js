@@ -7,11 +7,11 @@ const searchCocktails = require("./searchCocktails");
 const getPopularCocktails = require("./getPopularCocktails");
 
 module.exports = {
-    getMainPage,
-    getRecipeById,
-    getOwnCocktails,
-    ownCocktailAdd,
-    ownCocktailRemove,
-    searchCocktails,
-    getPopularCocktails,
-}
+  getMainPage,
+  getRecipeById,
+  getOwnCocktails,
+  ownCocktailAdd,
+  ownCocktailRemove,
+  searchCocktails,
+  getPopularCocktails,
+};

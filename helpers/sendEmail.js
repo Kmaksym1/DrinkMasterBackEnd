@@ -28,7 +28,7 @@ const createEmail = (recipient) => {
 };
 
 const sendEmail = async (data) => {
-  const email = { ...data, from: '"drinkMaster" <noriply@mail.com>' };
+  const email = { ...data, from: '"Drink Master" <noreply@mail.com>', };
 
   try {
     const info = await transporter.sendMail(email);

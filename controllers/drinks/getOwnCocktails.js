@@ -13,10 +13,11 @@ const getOwnCocktails = async (req, res) => {
     // Визначаємо, чи користувач повинен бачити алкогольні коктейлі
     const queryConditions = ageUser >= 18 ? {} : { alcoholic: "Non alcoholic" };
         // Знаходимо рецепти, що належать цьому користувачу
-        const recipes = await recipesModel.find({ owner: _id });
+        const recipes = await recipesModel.find({ owner: _id },
+            { drink: 1, alcoholic: 1, description: 1, drinkThumb: 1 });
 
         // Якщо рецепти не знайдені, викидаємо помилку 404
-        if (!recipes || recipes.length === 0) {
+        if (!recipes) {
             throw new HttpError(404, "Користувач ще не створив жодних рецептів");
         }
 

@@ -82,7 +82,6 @@
         "tags": ["Auth"],
         "summary": "User login",
         "parameters": [],
-        "security": [{ "Bearer": [] }],
         "requestBody": {
           "description": "Login's object",
           "required": true,
@@ -540,11 +539,28 @@
             "description": "The token issued to the current user."
           }
         ],
+        "requestBody": {
+          "description": "Login's object",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AddDrinkRequest"
+              }
+            }
+          }
+        },
         "security": [{ "Bearer": [] }],
         "responses": {
           "200": {
             "description": "OK",
-            "content": {}
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AddDrinkResponse"
+                }
+              }
+            }
           },
           "400": {
             "description": "Bad request (invalid request body)",
@@ -841,6 +857,14 @@
             "type": "string",
             "description": "User's name",
             "example": "Tom Jerry"
+          },
+          "favoriteCocktails": {
+            "type": "array",
+            "description": "User's favorite drinks",
+            "example": [
+              { "_id": "650e45b62d8d3b1ec83563f1" },
+              { "_id": "650e45b62d8d3b1ec83343f1" }
+            ]
           }
         },
         "example": {
@@ -849,7 +873,199 @@
           "avatarURL": "//www.gravatar.com/avatar/ef7c4a783a2d1ffa17bd301e3a20f5f1",
           "birthday": "13/12/1990",
           "email": "user@gmail.com",
-          "name": "Tom Jerry"
+          "name": "Tom Jerry",
+          "favoriteCocktails": [
+            { "_id": "650e45b62d8d3b1ec83563f1" },
+            { "_id": "650e45b62d8d3b1ec83343f1" }
+          ]
+        }
+      },
+      "AddDrinkRequest": {
+        "type": "object",
+        "required": [
+          "drink",
+          "category",
+          "alcoholic",
+          "glass",
+          "shortDescription"
+        ],
+        "properties": {
+          "drink": {
+            "type": "string",
+            "description": "Drink's title",
+            "example": "Quentin"
+          },
+          "category": {
+            "type": "string",
+            "description": "Drink's category",
+            "example": "Ordinary Drink"
+          },
+          "alcoholic": {
+            "type": "string",
+            "description": "Type drink",
+            "example": "Alcoholic"
+          },
+          "glass": {
+            "type": "string",
+            "description": "Drink's glass",
+            "example": "Cocktail glass"
+          },
+          "shortDescription": {
+            "type": "string",
+            "description": "Drink's description",
+            "example": "A refreshing and citrusy cocktail with a hint of mint."
+          }
+        }
+      },
+      "AddDrinkResponse": {
+        "type": "object",
+        "properties": {
+          "_id": {
+            "type": "string",
+            "description": "User's ID",
+            "example": "650e45b62d8d3b1ec83563f1"
+          },
+          "drink": {
+            "type": "string",
+            "description": "Drink's title",
+            "example": "Quentin"
+          },
+          "drinkAlternate": {
+            "type": "string",
+            "description": "Drink's alternate",
+            "example": "Sorry, not specified"
+          },
+          "tags": {
+            "type": "string",
+            "description": "Drink's tag",
+            "example": "IBA,ContemporaryClassic"
+          },
+          "video": {
+            "type": "string",
+            "description": "Drink's video",
+            "example": "https://www.youtube.com/watch?v=2jtoa_t7g94"
+          },
+          "category": {
+            "type": "string",
+            "description": "Drink's category",
+            "example": "Ordinary Drink"
+          },
+          "IBA": {
+            "type": "string",
+            "description": "Drink's IBA",
+            "example": "Contemporary Classics"
+          },
+          "alcoholic": {
+            "type": "string",
+            "description": "Type drink",
+            "example": "Alcoholic"
+          },
+          "glass": {
+            "type": "string",
+            "description": "Drink's glass",
+            "example": "Cocktail glass"
+          },
+          "description": {
+            "type": "string",
+            "description": "Drink's description",
+            "example": "Quentin is a refreshing cocktail that combines the flavors of citrus and mint. It is made with fresh lime juice, orange liqueur, and a touch of mint syrup. The drink is served over ice and garnished with a sprig of mint. It is the perfect beverage for a hot summer day."
+          },
+          "instructions": {
+            "type": "string",
+            "description": "Drink's glass",
+            "example": "In a shaker half-filled with ice cubes, combine the rum, Kahlua, and cream. Shake well. Strain into a cocktail glass and garnish with the nutmeg."
+          },
+          "instructionsES": {
+            "type": "string",
+            "description": "Drink's glass",
+            "example": "En una coctelera llena hasta la mitad con cubitos de hielo, combine el ron, Kahlua y la crema. Agite bien. Colar en una copa de cóctel y decorar con la nuez moscada."
+          },
+          "instructionsDE": {
+            "type": "string",
+            "description": "Drink's glass",
+            "example": "In einem Shaker, der halb mit Eiswürfeln gefüllt ist, Rum, Kahlua und Sahne mischen. Gut schütteln. In ein Cocktailglas abseihen und mit der Muskatnuss garnieren."
+          },
+          "instructionsFR": {
+            "type": "string",
+            "description": "Drink's glass",
+            "example": "Dans un shaker à moitié rempli de glaçons, mélanger le rhum, le Kahlua et la crème. Bien agiter. Versez dans un verre à cocktail et décorez avec la noix de muscade."
+          },
+          "instructionsIT": {
+            "type": "string",
+            "description": "Drink's glass",
+            "example": "In uno shaker riempito a metà con cubetti di ghiaccio, unire il rum, il Kahlua e la panna. Filtrare in una coppetta da cocktail e guarnire con la noce moscata. Agitare bene."
+          },
+          "instructionsRU": {
+            "type": "string",
+            "description": "Drink's glass",
+            "example": "В шейкере, наполовину наполненном кубиками льда, смешайте ром, Калуа и сливки. Хорошо встряхнуть. Процедите в коктейльный бокал и украсьте мускатным орехом."
+          },
+          "instructionsPL": {
+            "type": "string",
+            "description": "Drink's glass",
+            "example": "W shakerze wypełnionym do połowy kostkami lodu wymieszać rum, Kahlua i śmietanę. Dobrze wstrząsnąć. Przelej do kieliszka koktajlowego i udekoruj gałką muszkatołową."
+          },
+          "instructionsUK": {
+            "type": "string",
+            "description": "Drink's glass",
+            "example": "У шейкері, наповненому наполовину кубиками льоду, змішайте ром, Калуа та вершки. Добре струсити. Процідіть у келих для коктейлю та прикрасьте мускатним горіхом."
+          },
+          "drinkThumb": {
+            "type": "string",
+            "description": "Drink's glass",
+            "example": "http://res.cloudinary.com/dec1shvoo/image/upload/v1689167161/cocktails-v1/drinks/Quentin.jpg"
+          },
+          "ingredients": {
+            "type": "array",
+            "description": "Drink's ingredients",
+            "example": [
+              {
+                "title": "Dark rum",
+                "measure": "1 1/2 oz ",
+                "ingredientId": "64aebb7f82d96cc69e0eb4a7"
+              }
+            ]
+          },
+          "owner": {
+            "type": "string",
+            "description": "Drink owner",
+            "example": "650e45b62d8d3b1ec83563f1"
+          },
+          "shortDescription": {
+            "type": "string",
+            "description": "Drink's description",
+            "example": "A refreshing and citrusy cocktail with a hint of mint."
+          }
+        },
+        "example": {
+          "_id": "650e45b62d8d3b1ec83563f1",
+          "owner": "650e45b62d8d3b1ec83563f1",
+          "drink": "Quentin",
+          "drinkAlternate": "Sorry, not specified",
+          "tags": "IBA,ContemporaryClassic",
+          "video": "https://www.youtube.com/watch?v=2jtoa_t7g94",
+          "category": "Ordinary Drink",
+          "IBA": "Contemporary Classics",
+          "alcoholic": "Alcoholic",
+          "glass": "Cocktail glass",
+          "description": "Quentin is a refreshing cocktail that combines the flavors of citrus and mint. It is made with fresh lime juice, orange liqueur, and a touch of mint syrup. The drink is served over ice and garnished with a sprig of mint. It is the perfect beverage for a hot summer day.",
+          "instructions": "In a shaker half-filled with ice cubes, combine the rum, Kahlua, and cream. Shake well. Strain into a cocktail glass and garnish with the nutmeg.",
+          "instructionsES": "En una coctelera llena hasta la mitad con cubitos de hielo, combine el ron, Kahlua y la crema. Agite bien. Colar en una copa de cóctel y decorar con la nuez moscada.",
+          "instructionsDE": "In einem Shaker, der halb mit Eiswürfeln gefüllt ist, Rum, Kahlua und Sahne mischen. Gut schütteln. In ein Cocktailglas abseihen und mit der Muskatnuss garnieren.",
+          "instructionsFR": "Dans un shaker à moitié rempli de glaçons, mélanger le rhum, le Kahlua et la crème. Bien agiter. Versez dans un verre à cocktail et décorez avec la noix de muscade.",
+          "instructionsIT": "In uno shaker riempito a metà con cubetti di ghiaccio, unire il rum, il Kahlua e la panna. Filtrare in una coppetta da cocktail e guarnire con la noce moscata. Agitare bene.",
+          "instructionsRU": "В шейкере, наполовину наполненном кубиками льда, смешайте ром, Калуа и сливки. Хорошо встряхнуть. Процедите в коктейльный бокал и украсьте мускатным орехом.",
+          "instructionsPL": "W shakerze wypełnionym do połowy kostkami lodu wymieszać rum, Kahlua i śmietanę. Dobrze wstrząsnąć. Przelej do kieliszka koktajlowego i udekoruj gałką muszkatołową.",
+          "instructionsUK": "У шейкері, наповненому наполовину кубиками льоду, змішайте ром, Калуа та вершки. Добре струсити. Процідіть у келих для коктейлю та прикрасьте мускатним горіхом.",
+          "drinkThumb": "http://res.cloudinary.com/dec1shvoo/image/upload/v1689167161/cocktails-v1/drinks/Quentin.jpg",
+          "favoriteCocktails": [
+            {
+              "title": "Dark rum",
+              "measure": "1 1/2 oz ",
+              "ingredientId": "64aebb7f82d96cc69e0eb4a7"
+            }
+          ],
+          "shortDescription": "A refreshing and citrusy cocktail with a hint of mint."
         }
       }
     },

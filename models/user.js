@@ -49,6 +49,11 @@ const userSchema = new Schema(
       type: Boolean,
       default: false,
     },
+    favoriteCocktails: [
+      {
+        type: Object,
+      },
+    ],
   },
   {
     versionKey: false,

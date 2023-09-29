@@ -19,7 +19,7 @@ const getPopularCocktails = async (req, res) => {
             .sort({ popular: -1 }) // Сортуємо за кількістю додавань до обраних
             .limit(4);
 
-        res.status(200).json({data: popularCocktails});
+        res.status(200).json( popularCocktails);
     } catch (error) {
         res.status(error.statusCode || 500).json({
             code: error.statusCode || 500,

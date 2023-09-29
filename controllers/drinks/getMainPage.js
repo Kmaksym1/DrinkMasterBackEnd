@@ -14,7 +14,7 @@ const getMainPage = async (req, res) => {
 
     const queryConditions = ageUser >= 18 ? { } : { alcoholic: "Non alcoholic" };
 
-    const drinks = await recipesModel.find(queryConditions, "", { skip, limit });
+    const drinks = await recipesModel.find(queryConditions, "", { skip });
     if (!drinks) {
       throw HttpError(404, "Not found");
     }

@@ -3,17 +3,18 @@ const HttpError = require('../../helpers/HttpError');
 const { differenceInYears } = require("date-fns");
 
 const ownCocktailAdd = async (req, res) => {
-    // const { birthday } = req.user;
+   const {_id } = req.user;
+    const { birthday } = req.user;
 
     // // Отримуємо вік користувача
-    // const currentDate = new Date();
-    // const ageUser = differenceInYears(currentDate,  new Date(birthday));
+    const currentDate = new Date();
+    const ageUser = differenceInYears(currentDate,  new Date(birthday));
 
-    // const isAlcoholic = ageUser >= 18;
+    const isAlcoholic = ageUser >= 18;
     const cocktailAdd = {
         ...req.body,
        // drinkThumb: req.file.path,
-//ingredients: JSON.parse(req.body.ingredients),
+      //  ingredients: JSON.parse(req.body.ingredients),
     };
     console.log(cocktailAdd);
 
@@ -23,9 +24,9 @@ const ownCocktailAdd = async (req, res) => {
         res.status(400);
         throw HttpError(400, "Enter all fields");
     }
-   // const { _id } = req.user;
-    const result = await recipesModel.create({ ...cocktailAdd });
-//, owner: _id
+
+    const result = await recipesModel.create({ ...cocktailAdd, owner:_id});
+
     res.status(201).json({
         code: 201,
         message: 'Success',

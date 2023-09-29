@@ -15,6 +15,7 @@ router.post("/own/add",authenticate,upload.single("cocktails"),errorHandler(drin
 router.delete("/own/remove",authenticate, errorHandler(drinks.ownCocktailRemove));
 
 router.post("/favorite/add", authenticate, drinks.addCocktailToFavorites);
+router.delete("/favorite/remove", authenticate, drinks.removeCocktailFromFavorites);
 
 
 module.exports = router;

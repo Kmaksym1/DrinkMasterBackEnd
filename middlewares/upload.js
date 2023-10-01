@@ -27,7 +27,7 @@ const storage = new CloudinaryStorage({
         break;
       case "drinkThumb":
         folder = "cocktails";
-        transformation({ width: 400 });
+         transformation.push({crop: "crop", width: 400 });
         break;
       default:
         folder = "others";
@@ -39,6 +39,7 @@ const storage = new CloudinaryStorage({
       transformation,
       allowed_formats: ["jpg", "jpeg", "png"],
       public_id: `avatar_${req.user._id}`,
+
     };
   },
 });

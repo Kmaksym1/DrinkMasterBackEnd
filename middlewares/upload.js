@@ -11,8 +11,6 @@ cloudinary.config({
   api_secret: CLOUD_API_SECRET,
 });
 
-const tempDir = path.resolve("temp");
-
 const storage = new CloudinaryStorage({
   cloudinary: cloudinary,
   params: async (req, file) => {

@@ -14,7 +14,7 @@ const updateUser = async (req, res, next) => {
   try {
     const { _id } = req.user;
     const updateData = req.body;
-    const avatarURL = req.file.path;
+    const avatarURL = req.file;
 
     const updatedUser = await User.findByIdAndUpdate(
       _id,

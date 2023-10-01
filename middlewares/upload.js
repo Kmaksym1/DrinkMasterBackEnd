@@ -27,7 +27,8 @@ const storage = new CloudinaryStorage({
         break;
       case "drinkThumb":
         folder = "cocktails";
-         transformation.push({crop: "crop", width: 400 });
+        transformation.push({ width: 400 });
+
         break;
       default:
         folder = "others";

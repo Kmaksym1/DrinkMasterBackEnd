@@ -6,23 +6,21 @@ const fs = require("fs/promises");
 const cloudinary = require("../../helpers/cloudinary");
 
 const ownCocktailAdd = async (req, res) => {
-    const {_id } = req.user;
+    const { _id } = req.user;
     const { birthday } = req.user;
-    const { ingredients } = req.body;
-    // // Отримуємо вік користувача
+    const drinkThumb = req.file.path;
+    const {ingredients} = req.params;
     const currentDate = new Date();
     const ageUser = differenceInYears(currentDate,  new Date(birthday));
-// if (!req.file) {
-//   res.status(400).json({ message: 'No file uploaded' });
-//   return;
-//     }
-  console.log(req.body);
-   console.log(req.file);
-    //const isAlcoholic = ageUser >= 18;
+    if (!req.file) {
+    res.status(400).json( req.file === null );
+     return;
+    }
+    const isAlcoholic = ageUser >= 18;
     const cocktailAdd = {
-        ...req.body,
-    // drinkThumb: req.file.path,
-     // ingredients: JSON.parse(req.body.ingredients),
+     ...req.body,
+    drinkThumb,
+  ingredients: JSON.stringify(req.body.ingredients),
     };
     console.log(cocktailAdd);
 
@@ -36,9 +34,9 @@ const ownCocktailAdd = async (req, res) => {
     const result = await recipesModel.create({ ...cocktailAdd, owner:_id});
 
     res.status(201).json({
-        code: 201,
-        message: 'Success',
-        data: result,
+        // code: 201,
+        // message: 'Success',
+        data:  result,
     });
 };
 

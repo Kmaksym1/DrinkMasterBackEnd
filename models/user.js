@@ -49,9 +49,10 @@ const userSchema = new Schema(
       type: Boolean,
       default: false,
     },
-    favoriteCocktails: [
+    favorite: [
       {
-        type: Object,
+        type: Schema.Types.ObjectId,
+        ref: "recipes",
       },
     ],
   },

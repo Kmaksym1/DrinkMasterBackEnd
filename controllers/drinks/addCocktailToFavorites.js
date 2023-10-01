@@ -3,30 +3,28 @@ const { HttpError } = require("../../helpers");
 
 const addCocktailToFavorites = async (req, res, next) => {
   try {
-    const cocktailId = req.body;
-    const { favoriteCocktails } = req.user;
+    const reqID = req.body;
+    const { favorite } = req.user;
 
-    if (
-      favoriteCocktails.some((cocktail) => cocktail._id.equals(cocktailId._id))
-    ) {
+    if (favorite.some((cocktail) => cocktail._id.equals(reqID._id))) {
       return res
         .status(400)
         .json({ message: "This cocktail is already in your favorites" });
     }
 
-    const cocktail = await recipesModel.findById(cocktailId);
+    const cocktail = await recipesModel.findById(reqID._id);
 
     if (!cocktail) {
       return res.status(404).json({ message: "Cocktail not found" });
     }
 
-    favoriteCocktails.push(cocktail);
+    favorite.push(cocktail._id);
     cocktail.popular = (cocktail.popular || 0) + 1;
 
     await cocktail.save();
     await req.user.save();
 
-    res.status(200).json(cocktail);
+    res.status(200).json({ message: "Сocktail added successfully" });
   } catch (error) {
     next(error);
   }

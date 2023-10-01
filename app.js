@@ -9,9 +9,7 @@ const usersRouter = require("./routes/api/users");
 const authRouter = require("./routes/api/auth");
 const filtersRouter = require("./routes/api/filters");
 
-
 const drinksRouter = require("./routes/api/drinks");
-
 
 const app = express();
 

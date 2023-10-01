@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const ctrls = require("../../controllers/users");
-const { authenticate, isValidId } = require("../../middlewares");
+const { authenticate, isValidId, upload } = require("../../middlewares");
 
 router.get("/current", authenticate, ctrls.getCurrentUser);
 

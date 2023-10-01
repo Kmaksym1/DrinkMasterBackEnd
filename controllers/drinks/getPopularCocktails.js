@@ -3,11 +3,7 @@ const HttpError = require('../../helpers/HttpError');
 const { differenceInYears } = require("date-fns");
 
 const getPopularCocktails = async (req, res) => {
-
-
     try {
-        // const { limit = 4 } = req.query;
-        // const skip = (page - 1) * limit;
         const { birthday } = req.user;
       
         const currentDate = new Date();
@@ -20,15 +16,10 @@ const getPopularCocktails = async (req, res) => {
 
         const popularCocktails = await recipesModel
             .find(queryConditions) // Враховуємо фільтрацію за віком
-            .sort({ favorites: -1 }) // Сортуємо за кількістю додавань до обраних
-            // .skip(skip)
+            .sort({ popular: -1 }) // Сортуємо за кількістю додавань до обраних
             .limit(4);
 
-        res.status(200).json({
-            code: 200,
-            quantity: popularCocktails.length,
-            data: popularCocktails,
-        });
+        res.status(200).json( popularCocktails);
     } catch (error) {
         res.status(error.statusCode || 500).json({
             code: error.statusCode || 500,

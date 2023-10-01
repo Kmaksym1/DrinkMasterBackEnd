@@ -6,6 +6,8 @@ const ownCocktailRemove = require("./ownCocktailRemove");
 const searchCocktails = require("./searchCocktails");
 const getPopularCocktails = require("./getPopularCocktails");
 const addCocktailToFavorites = require("./addCocktailToFavorites");
+const removeCocktailFromFavorites = require("./removeCocktailFromFavorites");
+const getAllFavorites = require("./getAllFavorites");
 
 module.exports = {
   getMainPage,
@@ -16,4 +18,6 @@ module.exports = {
   searchCocktails,
   getPopularCocktails,
   addCocktailToFavorites,
+  removeCocktailFromFavorites,
+  getAllFavorites,
 };

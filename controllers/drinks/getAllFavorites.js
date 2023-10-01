@@ -1,11 +1,16 @@
+const { User } = require("../../models/user");
+
 const getAllFavorites = async (req, res, next) => {
   try {
-    const { favoriteCocktails } = req.user;
+    const { favorite, _id } = req.user;
 
-    if (!favoriteCocktails) {
+    if (!favorite || favorite.length === 0) {
       return res.status(404).json({ message: "No favorite cocktails" });
     }
-    res.status(200).json({ favoriteCocktails });
+
+    const userWithFavorites = await User.findById(_id).populate("favorite");
+    
+    res.status(200).json({ favorite: userWithFavorites.favorite });
   } catch (error) {
     next(error);
   }

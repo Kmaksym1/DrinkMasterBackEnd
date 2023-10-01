@@ -10,7 +10,7 @@ const { schema } = require("../../models/recipesModel");
 router.get("/mainpage", authenticate, errorHandler(drinks.getMainPage));
 router.get("/popular", authenticate, errorHandler(drinks.getPopularCocktails));
 router.get("/search", authenticate, errorHandler(drinks.searchCocktails));
-router.get("/favorite", authenticate, errorHandler(drinks.getAllFavorites));
+router.get("/favorite", authenticate, drinks.getAllFavorites);
 router.get("/own/all", authenticate, errorHandler(drinks.getOwnCocktails));
 router.post(
   "/own/add",

@@ -5,7 +5,12 @@ const { authenticate, isValidId, upload } = require("../../middlewares");
 
 router.get("/current", authenticate, ctrls.getCurrentUser);
 
-router.patch("/update", authenticate, ctrls.updateUser);
+router.patch(
+  "/update",
+  authenticate,
+  upload.single("avatar"),
+  ctrls.updateUser
+);
 
 router.post("/subscribe", ctrls.subscribeEmail);
 

@@ -13,12 +13,16 @@ const getCurrentUser = async (req, res, next) => {
 const updateUser = async (req, res, next) => {
   try {
     const { _id } = req.user;
-
     const updateData = req.body;
+    const avatarURL = req.file.path;
 
-    const updatedUser = await User.findByIdAndUpdate(_id, updateData, {
-      new: true,
-    });
+    const updatedUser = await User.findByIdAndUpdate(
+      _id,
+      { ...updateData, avatarURL },
+      {
+        new: true,
+      }
+    );
 
     if (!updatedUser) {
       throw HttpError(404, "User not found");

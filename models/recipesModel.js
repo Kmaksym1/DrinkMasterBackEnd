@@ -49,7 +49,7 @@ const schema = Joi.object({
   glass: Joi.string().required(),
   description: Joi.string(),
   instructions: Joi.string(),
-  drinkThumb: Joi.string(),
+  drinkThumb: Joi.string().required(),
   ingredients: Joi.array(),
   shortDescription: Joi.string().required(),
   owner: Joi.object(),

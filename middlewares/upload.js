@@ -20,10 +20,12 @@ const storage = new CloudinaryStorage({
     switch (file.fieldname) {
       case "avatar":
         folder = "avatars";
-        transformation.push(
-          { crop: "crop", gravity: "face", height: 200, width: 200 },
-          { crop: "scale", width: 45 }
-        );
+        transformation.push({
+          crop: "thumb",
+          gravity: "adv_face",
+          height: 100,
+          width: 100,
+        });
         break;
       case "drinkThumb":
         folder = "cocktails";
@@ -40,7 +42,6 @@ const storage = new CloudinaryStorage({
       transformation,
       allowed_formats: ["jpg", "jpeg", "png"],
       public_id: `avatar_${req.user._id}`,
-
     };
   },
 });

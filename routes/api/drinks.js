@@ -16,7 +16,6 @@ router.post(
   "/own/add",
   authenticate,
   upload.single("drinkThumb"),
-  // validateBody(schema),
   errorHandler(drinks.ownCocktailAdd)
 );
 router.delete(

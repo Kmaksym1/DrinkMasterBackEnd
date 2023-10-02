@@ -1,6 +1,6 @@
-const { recipesModel } = require('../../models/recipesModel');
-const HttpError = require('../../helpers/HttpError');
-const { differenceInYears } = require('date-fns');
+const { recipesModel } = require("../../models/recipesModel");
+const HttpError = require("../../helpers/HttpError");
+const { differenceInYears } = require("date-fns");
 
 const searchCocktails = async (req, res) => {
   try {
@@ -25,7 +25,9 @@ const searchCocktails = async (req, res) => {
     }
 
     if (ingredient) {
-      query.push({ "ingredients.title": { $regex: ingredient, $options: "i" } });
+      query.push({
+        "ingredients.title": { $regex: ingredient, $options: "i" },
+      });
     }
 
     if (category) {
@@ -38,16 +40,17 @@ const searchCocktails = async (req, res) => {
 
     const totalHits = await recipesModel.countDocuments({ $and: query });
 
-    const result = await recipesModel.find({ $and: query }, "", { skip, limit }).lean();
+    const result = await recipesModel
+      .find({ $and: query }, "", { skip, limit })
+      .lean();
 
-    res.json({ page, limit, totalHits, result });
+    res.json({ page, limit, quantity: totalHits, data: result });
   } catch (error) {
     res.status(error.statusCode || 500).json({
       code: error.statusCode || 500,
-      message: error.message || 'Внутрішня помилка сервера',
+      message: error.message || "Внутрішня помилка сервера",
     });
   }
 };
 
 module.exports = searchCocktails;
-

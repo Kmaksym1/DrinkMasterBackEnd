@@ -34,6 +34,6 @@ router.delete(
   authenticate,
   errorHandler(drinks.removeCocktailFromFavorites)
 );
-router.get("/:id", authenticate, isValidId, errorHandler(drinks.getRecipeById));
+router.get("/:id", authenticate,  errorHandler(drinks.getRecipeById));
 
 module.exports = router;

@@ -45,6 +45,10 @@ const signIn = async (req, res) => {
 
   res.json({
     token,
+    email: user.email,
+    name: user.name,
+    avatarURL: user.avatarURL,
+    birthday: user.birthday,
   });
 };
 

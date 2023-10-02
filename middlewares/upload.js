@@ -22,7 +22,7 @@ const storage = new CloudinaryStorage({
         folder = "avatars";
         transformation.push({
           crop: "thumb",
-          gravity: "adv_face",
+          gravity: "face",
           height: 100,
           width: 100,
         });

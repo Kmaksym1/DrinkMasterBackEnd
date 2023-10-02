@@ -2,7 +2,7 @@ const { recipesModel, schema } = require('../../models/recipesModel');
 const HttpError = require('../../helpers/HttpError');
 const { differenceInYears } = require("date-fns");
 
-const fs = require("fs/promises");
+
 const cloudinary = require("../../helpers/cloudinary");
 
 const ownCocktailAdd = async (req, res) => {

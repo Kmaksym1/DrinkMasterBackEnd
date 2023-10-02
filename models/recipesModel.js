@@ -52,7 +52,7 @@ const schema = Joi.object({
   drinkThumb: Joi.string(),
   ingredients: Joi.array(),
   shortDescription: Joi.string().required(),
-  owner: Joi.array(),
+  owner: Joi.object(),
 });
 
 const recipesModel = model("recipes", recipesSchema);

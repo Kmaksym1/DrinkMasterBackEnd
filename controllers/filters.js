@@ -15,7 +15,7 @@ const getCategories = async (req, res) => {
 };
 
 const getIngredients = async (req, res) => {
-  const ingredients = await Ingredient.find({}).sort({ title: 1 });
+  const ingredients = await Ingredient.find({}).populate("title");
   if (!ingredients) {
     throw HttpError(404, "Not Found");
   }

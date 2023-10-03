@@ -15,7 +15,8 @@ const getCategories = async (req, res) => {
 };
 
 const getIngredients = async (req, res) => {
-  const ingredients = await Ingredient.find({}).select('title');
+  // const ingredients = await Ingredient.find({}).select("title");
+  const ingredients = await Ingredient.find();
 
   if (!ingredients) {
     throw HttpError(404, "Not Found");

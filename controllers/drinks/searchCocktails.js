@@ -48,13 +48,21 @@ const searchCocktails = async (req, res) => {
       res.json({ page, limit, quantity: totalHits, data: result });
     }
 
-    const result = await recipesModel.find(queryConditions, "", { skip });
+    const result = await recipesModel.find(queryConditions, "", {
+      skip,
+      limit,
+    });
 
     if (!result) {
       throw HttpError(404, "Not found");
     }
 
-    res.json({ page, limit, quantity: result.length, data: result });
+    res.json({
+      page: Number(page),
+      limit: Number(limit),
+      quantity: result.length,
+      data: result,
+    });
   } catch (error) {
     res.status(error.statusCode || 500).json({
       code: error.statusCode || 500,

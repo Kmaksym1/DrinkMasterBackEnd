@@ -48,10 +48,7 @@ const searchCocktails = async (req, res) => {
       res.json({ page, limit, quantity: totalHits, data: result });
     }
 
-    const result = await recipesModel.find(queryConditions, "", {
-      skip,
-      limit,
-    });
+    const result = await recipesModel.find(queryConditions, "", { skip });
 
     if (!result) {
       throw HttpError(404, "Not found");

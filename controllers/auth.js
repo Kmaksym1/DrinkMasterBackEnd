@@ -18,7 +18,24 @@ const signUp = async (req, res) => {
   // додавання нового юзера в базу
   const newUser = await User.create({ ...req.body, password: hashPassword });
 
-  res.status(201).json(newUser);
+  const payload = {
+    id: newUser._id,
+  };
+
+  const token = jwt.sign(payload, SECRET);
+
+  await User.findByIdAndUpdate(newUser._id, { token });
+
+  res.status(201).json({
+    _id: newUser._id,
+    email: newUser.email,
+    name: newUser.name,
+    avatarURL: newUser.avatarURL,
+    birthday: newUser.birthday,
+    subscribe: newUser.subscribe,
+    favorite: newUser.favorite,
+    token,
+  });
 };
 
 const signIn = async (req, res) => {

@@ -5,7 +5,7 @@ const getAllFavorites = async (req, res, next) => {
     const { favorite, _id } = req.user;
 
     if (!favorite || favorite.length === 0) {
-      return res.status(404).json({ message: "No favorite cocktails" });
+      return res.status(200).json({ message: "No favorite cocktails" });
     }
 
     const userWithFavorites = await User.findById(_id).populate("favorite");

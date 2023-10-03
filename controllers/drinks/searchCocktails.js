@@ -38,13 +38,23 @@ const searchCocktails = async (req, res) => {
       query.push(queryConditions);
     }
 
-    const totalHits = await recipesModel.countDocuments({ $and: query });
+    if (query.length) {
+      const totalHits = await recipesModel.countDocuments({ $and: query });
 
-    const result = await recipesModel
-      .find({ $and: query }, "", { skip, limit })
-      .lean();
+      const result = await recipesModel
+        .find({ $and: query }, "", { skip, limit })
+        .lean();
 
-    res.json({ page, limit, quantity: totalHits, data: result });
+      res.json({ page, limit, quantity: totalHits, data: result });
+    }
+
+    const result = await recipesModel.find(queryConditions, "", { skip });
+
+    if (!result) {
+      throw HttpError(404, "Not found");
+    }
+
+    res.json({ page, limit, quantity: result.length, data: result });
   } catch (error) {
     res.status(error.statusCode || 500).json({
       code: error.statusCode || 500,

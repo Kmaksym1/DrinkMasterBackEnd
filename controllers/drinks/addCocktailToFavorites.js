@@ -24,7 +24,9 @@ const addCocktailToFavorites = async (req, res, next) => {
     await cocktail.save();
     await req.user.save();
 
-    res.status(200).json({ message: "Сocktail added successfully" });
+    res
+      .status(200)
+      .json({ message: "Сocktail added successfully", id: cocktail._id });
   } catch (error) {
     next(error);
   }

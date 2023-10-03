@@ -54,16 +54,21 @@ const searchCocktails = async (req, res) => {
       });
     }
 
-    const result = await recipesModel.find(queryConditions, "", { skip });
+    const result = await recipesModel.find(queryConditions, "", {
+      skip,
+      limit,
+    });
+    const totalHits = await recipesModel.find(queryConditions, "", { skip });
 
-    if (!result) {
+    if (!result || !totalHits) {
       throw HttpError(404, "Not found");
     }
 
+    
     res.json({
       page: Number(page),
       limit: Number(limit),
-      quantity: result.length,
+      quantity: totalHits.length,
       data: result,
     });
   } catch (error) {

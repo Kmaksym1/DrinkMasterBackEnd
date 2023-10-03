@@ -17,10 +17,11 @@ const searchCocktails = async (req, res) => {
 
     if (searchWord) {
       query.push({
-        $or: [
-          { drink: { $regex: searchWord, $options: "i" } },
-          { "ingredients.title": { $regex: searchWord, $options: "i" } },
-        ],
+        drink: { $regex: searchWord, $options: "i" },
+        // $or: [
+        //   { drink: { $regex: searchWord, $options: "i" } },
+        //   { "ingredients.title": { $regex: searchWord, $options: "i" } },
+        // ],
       });
     }
 
@@ -45,7 +46,12 @@ const searchCocktails = async (req, res) => {
         .find({ $and: query }, "", { skip, limit })
         .lean();
 
-      res.json({ page, limit, quantity: totalHits, data: result });
+      res.json({
+        page: Number(page),
+        limit: Number(limit),
+        quantity: totalHits,
+        data: result,
+      });
     }
 
     const result = await recipesModel.find(queryConditions, "", { skip });

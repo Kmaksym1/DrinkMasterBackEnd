@@ -52,7 +52,7 @@ const subscribeEmail = async (req, res, next) => {
 
     if (user.subscribe) {
       return res.status(409).json({
-        message: `Subscriber with the address ${user.email} already exists.`,
+        message: `Subscriber with the address ${user.email} already exists.`, //!todo user response
       });
     }
 

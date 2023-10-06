@@ -7,15 +7,13 @@ const addCocktailToFavorites = async (req, res, next) => {
     const { favorite } = req.user;
 
     if (favorite.some((cocktail) => cocktail._id.equals(reqID._id))) {
-      return res
-        .status(400)
-        .json({ message: "This cocktail is already in your favorites" });
+      throw HttpError(409, "This cocktail is already in your favorites");
     }
 
     const cocktail = await recipesModel.findById(reqID._id);
 
     if (!cocktail) {
-      return res.status(404).json({ message: "Cocktail not found" });
+      throw HttpError(404, "Cocktail not found");
     }
 
     favorite.push(cocktail._id);

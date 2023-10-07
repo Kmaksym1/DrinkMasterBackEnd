@@ -5,7 +5,7 @@ const { default: mongoose } = require("mongoose");
 
 const removeCocktailFromFavorites = async (req, res, next) => {
   try {
-    const reqId = req.body._id; //запит боді {"_id": "639b6de9ff77d221f190c51f"}
+    const reqId = req.body.id; //запит боді {"id": "639b6de9ff77d221f190c51f"}
     const userId = req.user._id;
     const { favorite } = req.user;
 

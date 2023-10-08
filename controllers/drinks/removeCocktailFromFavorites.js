@@ -5,13 +5,13 @@ const { default: mongoose } = require("mongoose");
 
 const removeCocktailFromFavorites = async (req, res, next) => {
   try {
-    const reqId = req.body.id; //запит боді {"id": "639b6de9ff77d221f190c51f"}
+    const reqId = req.params.id;
     const userId = req.user._id;
     const { favorite } = req.user;
 
     //чи є коктель в улюблених favorites з даним _id
     const existingCocktail = favorite.find(({ _id }) => _id.equals(reqId));
-
+    
     if (!existingCocktail) {
       throw HttpError(404, "Nothing to delete");
     }

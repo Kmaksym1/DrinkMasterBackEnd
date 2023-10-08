@@ -17,10 +17,10 @@ const removeCocktailFromFavorites = async (req, res, next) => {
     }
 
     //зміна методом $pull на серверній частині массив mongoDB і повертає оновлений масив
-    await User.findOneAndUpdate(
+    const updatedFavoriteArr = await User.findOneAndUpdate(
       userId, // умова пошуку юзера
       { $pull: { favorite: mongoose.Types.ObjectId(reqId) } }, // Оператор $pull для видалення об'єкту з массиву
-      { new: true } // Отримуємо оновлений док
+      { new: true } // Отримуємо оновлене поле favorite з юзера
     );
 
     const cocktail = await recipesModel.findById(reqId);
@@ -32,9 +32,7 @@ const removeCocktailFromFavorites = async (req, res, next) => {
     cocktail.popular = (cocktail.popular || 0) - 1;
     await cocktail.save();
 
-    res
-      .status(200)
-      .json({ message: "Cocktail removed from favorites", id: cocktail._id });
+    res.status(200).json({ favorite: updatedFavoriteArr.favorite });
   } catch (error) {
     next(error);
   }

@@ -23,7 +23,7 @@ router.delete(
 );
 router.post("/favorite/add", authenticate, drinks.addCocktailToFavorites);
 router.delete(
-  "/favorite/remove",
+  "/favorite/remove/:id",
   authenticate,
   drinks.removeCocktailFromFavorites
 );

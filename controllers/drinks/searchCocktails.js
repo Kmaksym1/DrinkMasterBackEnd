@@ -12,6 +12,7 @@ const searchCocktails = async (req, res) => {
     const ageUser = differenceInYears(currentDate, new Date(birthday));
 
     const queryConditions = ageUser >= 18 ? {} : { alcoholic: "Non alcoholic" };
+    console.log(queryConditions);
 
     let query = [];
 
@@ -53,22 +54,22 @@ const searchCocktails = async (req, res) => {
         data: result,
       });
     }
+    // const totalHits = await recipesModel.find(queryConditions, "", { skip });
+    const totalHits = await recipesModel.estimatedDocumentCount();
 
     const result = await recipesModel.find(queryConditions, "", {
       skip,
       limit,
     });
-    const totalHits = await recipesModel.find(queryConditions, "", { skip });
 
     if (!result || !totalHits) {
       throw HttpError(404, "Not found");
     }
 
-    
     res.json({
       page: Number(page),
       limit: Number(limit),
-      quantity: totalHits.length,
+      quantity: totalHits,
       data: result,
     });
   } catch (error) {

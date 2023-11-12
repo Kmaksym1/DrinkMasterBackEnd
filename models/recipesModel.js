@@ -23,7 +23,7 @@ const recipesSchema = new Schema(
     instructionsUK: String,
     drinkThumb: String,
     ingredients: Array,
-    favorites: Array,
+    // favorites: Array,
     shortDescription: String,
     owner: {
       type: Schema.Types.ObjectId,

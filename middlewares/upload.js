@@ -1,6 +1,8 @@
 const cloudinary = require("cloudinary").v2;
 const { CloudinaryStorage } = require("multer-storage-cloudinary");
 const multer = require("multer");
+const { nanoid } = require("nanoid");
+let id = nanoid(10);
 
 const { CLOUD_NAME, CLOUD_API_KEY, CLOUD_API_SECRET } = process.env;
 
@@ -40,7 +42,7 @@ const storage = new CloudinaryStorage({
       folder,
       transformation,
       allowed_formats: ["jpg", "jpeg", "png"],
-      public_id: `avatar_${req.user._id}`,
+      public_id: `${req.user._id}_${id}`,
     };
   },
 });

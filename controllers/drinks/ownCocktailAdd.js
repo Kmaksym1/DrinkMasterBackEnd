@@ -1,5 +1,5 @@
-const { recipesModel, schema } = require('../../models/recipesModel');
-const HttpError = require('../../helpers/HttpError');
+const { recipesModel, schema } = require("../../models/recipesModel");
+const HttpError = require("../../helpers/HttpError");
 const { differenceInYears } = require("date-fns");
 
 const fs = require("fs/promises");
@@ -9,12 +9,11 @@ const ownCocktailAdd = async (req, res) => {
   const { _id } = req.user;
   const { birthday } = req.user;
   const drinkThumb = req.file.path;
- // console.log(drinkThumb);
-  const { ingredients } = req.body; 
-  //console.log(ingredients);
-  let  parsedIngredients = JSON.parse(ingredients);
+  const { ingredients } = req.body;
+
+  let parsedIngredients = JSON.parse(ingredients);
   const currentDate = new Date();
-  const ageUser = differenceInYears(currentDate,  new Date(birthday));
+  const ageUser = differenceInYears(currentDate, new Date(birthday));
 
   const queryConditions = ageUser >= 18 ? {} : { alcoholic: "Non alcoholic" };
 
@@ -22,8 +21,8 @@ const ownCocktailAdd = async (req, res) => {
     return res.status(400).json({ error: "No file uploaded" });
   }
 
- //let parsedIngredients = [];
-  if (typeof ingredients === 'string') {
+  //let parsedIngredients = [];
+  if (typeof ingredients === "string") {
     try {
       parsedIngredients = JSON.parse(ingredients);
     } catch (error) {

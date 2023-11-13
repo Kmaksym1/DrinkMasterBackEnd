@@ -17,7 +17,7 @@ router.post(
   errorHandler(drinks.ownCocktailAdd)
 );
 router.delete(
-  "/own/remove",
+  "/own/remove/:id",
   authenticate,
   errorHandler(drinks.ownCocktailRemove)
 );
